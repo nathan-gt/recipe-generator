@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: process.env.NODE_ENV === "production" ? 'http://www.recipe-generator.com/' : "/",
+    publicPath: process.env.NODE_ENV === "production" ? 'https://nathan-gt.github.io/recipe-generator/' : "/",
 };
