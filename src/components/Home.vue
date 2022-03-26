@@ -2,17 +2,20 @@
   <div class="accordion" id="accordion">
     <div v-for="(item, index) in this.$store.state.recipeList.values" :key="item" href="#" class="accordion-item">
         <h2 class="accordion-header" :id="'heading'+index">
-         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+         <button class="accordion-button collapsed" type="button" v-on:click="accordionClick(index)" data-bs-toggle="collapse" 
           :data-bs-target="'#collapse' + index" aria-expanded="false" :aria-controls="'collapse'+index">
             <div class="flexbox-item">{{ item[0] }}</div>
             <img v-if="item[2]==='X'" class="leaf" src="../assets/leaf-solid.svg" alt="Vege"/>
          </button>
        </h2>
        <div :id="'collapse'+index" class="accordion-collapse collapse" :aria-labelledby="'heading'+index" data-bs-parent="#accordion">
-         <div class="accordion-body">
+         <div v-if="item.hasOwnProperty(1)" class="accordion-body">
             <ul v-for="i in item[1].split(',')" :key="i">
               <li>{{i}}</li>
             </ul>
+         </div>
+         <div v-else class="accordion-body">
+           Aucun ingrédient n'est présent dans la recette.
          </div>
       </div>
     </div>
@@ -20,12 +23,19 @@
 </template>
 
 <script>
+import $ from 'jquery';
+
 // Hex to css filter: https://codepen.io/sosuke/pen/Pjoqqp
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
-  }
+  },
+  methods: {
+    accordionClick(index) {
+      window.scrollTo(0,($("#collapse"+index)[0].getBoundingClientRect().top + 100));
+    }
+  },
 }
 </script>
 
@@ -53,5 +63,9 @@ h3 {
 }
 ul {
   text-align: left;
+}
+.accordion {
+  margin-top:5%;
+  margin-bottom:10%;
 }
 </style>
