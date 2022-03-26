@@ -9,7 +9,7 @@
          </button>
        </h2>
        <div :id="'collapse'+index" class="accordion-collapse collapse" :aria-labelledby="'heading'+index" data-bs-parent="#accordion">
-         <div v-if="item.hasOwnProperty(1)" class="accordion-body">
+         <div v-if="item.hasOwnProperty(1) && !isEmptyOrSpaces(item[1])" class="accordion-body">
             <ul v-for="i in item[1].split(',')" :key="i">
               <li>{{i}}</li>
             </ul>
@@ -34,6 +34,9 @@ export default {
   methods: {
     accordionClick(index) {
       window.scrollTo(0,($("#collapse"+index)[0].getBoundingClientRect().top + 100));
+    },
+    isEmptyOrSpaces(str) {
+      return str === null || str.match(/^ *$/) !== null;
     }
   },
 }
