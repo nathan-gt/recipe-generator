@@ -5,21 +5,22 @@ import $ from 'jquery';
 
 export default createStore({
   state: {
-    recipeList:[]
+    recipeList:[],
+    shownList:[],
   },
   mutations: {
-    update(state, data) {
+    updateData(state, data) {
       state.recipeList = data;
-    }
+    },
   },
   actions: {
-    update(context) {
+    updateData(context) {
       return $.ajax({
         url: 'https://sheets.googleapis.com/v4/spreadsheets/1BGcX7HwzAUEj8e0cMYTRZ0R6eNsfXJjqtGVOAvCFtVw/values/A:D?key=AIzaSyAnuX0hx2KL13czhkA0-XTMNNZUGQmq004',
         method: 'GET',
         success: function(data) {
           data.values = data.values.slice(1);
-          context.commit('update', data);
+          context.commit('updateData', data);
         },
         error: function(data) {
           console.log(data);

@@ -1,22 +1,24 @@
 <template>
   <div class="container">
     <h1 class="display-1">Générateur de recettes familial</h1>
-  <img alt="graphic design is my passion" src="./assets/graphic_design_is_my_passion.jpg" style="width:50%; margin-top:15px">
-  <Home/>
+  <Generator/>
+  <List/>
   </div>
 </template>
 
 <script>
-import Home from './components/Home.vue'
+import Generator from './components/Generator.vue';
+import List from './components/List.vue';
 import store from '@/store/index.js';
 
-// Loads the state variable
-store.dispatch('update');
+// Loads the data in the state variable
+store.dispatch('updateData');
 
 export default {
   name: 'App',
   components: {
-    Home
+    Generator,
+    List
   }
 }
 </script>

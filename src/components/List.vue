@@ -5,7 +5,7 @@
          <button class="accordion-button collapsed" type="button" v-on:click="accordionClick(index)" data-bs-toggle="collapse" 
           :data-bs-target="'#collapse' + index" aria-expanded="false" :aria-controls="'collapse'+index">
             <div class="flexbox-item">{{ item[0] }}</div>
-            <img v-if="item[2]==='X'" class="leaf" src="../assets/leaf-solid.svg" alt="Vege"/>
+            <Vege v-if="item[2]==='X'" :id="'vege-'+index"/>
          </button>
        </h2>
        <div :id="'collapse'+index" class="accordion-collapse collapse" :aria-labelledby="'heading'+index" data-bs-parent="#accordion">
@@ -24,12 +24,13 @@
 
 <script>
 import $ from 'jquery';
+import Vege from './Vege.vue'
 
 // Hex to css filter: https://codepen.io/sosuke/pen/Pjoqqp
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  name: 'List',
+  components: {
+    Vege,
   },
   methods: {
     accordionClick(index) {
@@ -48,9 +49,6 @@ h3 {
   margin: 40px 0 0;
 }
 .leaf {
-  filter: invert(86%) sepia(37%) saturate(5962%) hue-rotate(35deg) brightness(110%) contrast(79%);
-  display:inline-flex;
-  width: 30px;
   margin-right:20px;
 }
 .accordion-button
