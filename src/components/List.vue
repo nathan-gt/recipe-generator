@@ -2,7 +2,7 @@
   <div class="accordion" id="accordion">
     <div v-for="(item, index) in this.$store.state.recipeList.values" :key="item" href="#" class="accordion-item">
         <h2 class="accordion-header" :id="'heading'+index">
-         <button class="accordion-button collapsed" type="button" v-on:click="accordionClick(index)" data-bs-toggle="collapse" 
+         <button :id="'acc-btn'+index" class="accordion-button collapsed" type="button" v-on:click="accordionClick(index)" data-bs-toggle="collapse" 
           :data-bs-target="'#collapse' + index" aria-expanded="false" :aria-controls="'collapse'+index">
             <div class="flexbox-item">{{ item[0] }}</div>
             <Vege v-if="item[2]==='X'" :id="'vege-'+index"/>
@@ -34,7 +34,9 @@ export default {
   },
   methods: {
     accordionClick(index) {
-      window.scrollTo(0,($("#collapse"+index)[0].getBoundingClientRect().top + 100));
+      setTimeout(() => {
+          window.scrollTo(0,window.scrollY + ($("#acc-btn"+index)[0].getBoundingClientRect().top));
+        }, 200);
     },
     isEmptyOrSpaces(str) {
       return str === null || str.match(/^ *$/) !== null;
@@ -43,7 +45,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {
   margin: 40px 0 0;

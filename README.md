@@ -1,5 +1,8 @@
 # recipe-generator
 
+## website:
+https://nathan-gt.github.io/recipe-generator/
+
 ### Pushing to prod (github pages):
 1. switch which line is commented in `vue.config.js`
 2. `npm run build`
@@ -7,7 +10,7 @@
 4. `git subtree split --branch gh-pages --prefix dist/`
 5. `git push --all`
 
-Don't forget to reswitch the commented line in `vue.config.js` and redo a `npm run build`
+Don't forget to reswitch the commented line in `vue.config.js` and redo a `npm run build` for the development build to still work locally.
 
 
 ## Project setup

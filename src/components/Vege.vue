@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 
 // Hex to css filter: https://codepen.io/sosuke/pen/Pjoqqp
 export default {
