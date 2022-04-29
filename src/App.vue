@@ -2,12 +2,14 @@
   <div class="container">
     <h1 class="display-1">Générateur de recettes familial</h1>
   <Generator/>
+  <GeneratedList/>
   <List/>
   </div>
 </template>
 
 <script>
 import Generator from './components/Generator.vue';
+import GeneratedList from './components/GeneratedList.vue';
 import List from './components/List.vue';
 import store from '@/store/index.js';
 
@@ -18,6 +20,7 @@ export default {
   name: 'App',
   components: {
     Generator,
+    GeneratedList,
     List
   }
 }

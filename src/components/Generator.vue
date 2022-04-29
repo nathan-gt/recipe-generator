@@ -1,14 +1,14 @@
 <template>
   <div class="generator-container">
-    <div id="nb">
-      <label for="nb-txt">Nombre de recettes à générer: </label>
-      <input maxlength="2" type="textbox" value="5" id="nb-txt"/>
-    </div>
-    <div id="nb">
-      <label for="nb-txt">Nombre de recettes végés à inclure: </label>
-      <input maxlength="2" type="textbox" value="0" id="nb-txt"/>
-      <Vege :id="'generator-vege'"/>
-    </div>
+      <div id="nb">
+        <label for="nb-txt">Nombre de recettes à générer: </label>
+        <input maxlength="2" type="textbox" value="5" id="nb-txt"/>
+      </div>
+      <div id="nbvege">
+        <label for="nb-txt">Nombre de recettes végées à inclure: </label>
+        <input maxlength="2" type="textbox" value="0" id="nb-txt"/>
+        <Vege :id="'generator-vege'"/>
+      </div>
     <a id="adv-options" data-bs-toggle="collapse" href="#adv-options-body" role="button" aria-expanded="false" aria-controls="adv-options-body">
       Options avancées
     </a>
@@ -18,17 +18,17 @@
             <label for="doubles-chk">Éviter les doublons?</label>
             <input type="checkbox" checked="true" id="doubles-chk"/>
           </div>
-          <div id="doubles">
-            <label for="doubles-chk">Inclure absolument les recettes épinglées?</label>
-            <input type="checkbox" checked="true" id="doubles-chk"/>
+          <div id="pins">
+            <label for="pins-chk">Inclure absolument les recettes épinglées?</label>
+            <input type="checkbox" checked="true" id="pins-chk"/>
           </div>
           <div id="blacklist">
-            <label for="blacklist-chk">Ignorer les recettes mis sur la blacklist?</label>
+            <label for="blacklist-chk">Ignorer les recettes mises sur la blacklist?</label>
             <input type="checkbox" checked="true" id="blacklist-chk"/>
           </div>
       </div>
     </div>
-    <button type="button" class="btn btn-success">Générer</button> 
+    <button type="button" class="btn btn-success" v-on:click="SubmitHandler()">Générer</button> 
   </div>
 </template>
 
@@ -42,6 +42,32 @@ export default {
     Vege
   },
   methods: {
+    /* params:
+          -> nbRecipes : number of recipes to generate (required)
+          -> nbVege : number of vege recipes to generate
+          -> lstPinned : array of the ids of pinned recipes to absolutely include in the generation
+    */
+    Generate(params) {
+      let recipes = [];
+      let generated;
+      if(typeof params.nbVege == "undefined")
+      {
+        for (let i = 0; i < params.nbRecipes; i++) {
+          do {
+            generated = Math.floor(Math.random()* this.$store.state.recipeList.values.length);
+          } while (recipes.includes(generated))
+          recipes[i] = generated;
+        }
+      }
+      this.$store.dispatch("updateGeneratedList", {list: recipes});
+    },
+
+    SubmitHandler() {
+      let params = {
+        nbRecipes : $("#nb-txt").val()
+      }
+      this.Generate(params);
+    },
   },
 }
 </script>
@@ -50,12 +76,15 @@ export default {
 .generator-container {
   display: flex;
   width: 100%;
-  border: 2px solid rgb(120, 148, 126);;
+  border: 2px solid rgb(120, 148, 126);
   border-radius: 5px;
   padding: 20px;
   flex-wrap: wrap;
   margin-top: 20px;
+  align-items: center;
+  justify-content: space-around;
 }
+
 .generator-container > div {
   margin:10px;
 }
@@ -94,7 +123,7 @@ button {
 
 .leaf {
   width: 20px;
-  margin: 10px;
+  margin-left: 10px;
 }
 
 </style>

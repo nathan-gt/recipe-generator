@@ -6,12 +6,15 @@ import $ from 'jquery';
 export default createStore({
   state: {
     recipeList:[],
-    shownList:[],
+    generatedList:[],
   },
   mutations: {
     updateData(state, data) {
       state.recipeList = data;
     },
+    updateGeneratedList(state, list) {
+      state.generatedList = list;
+    }
   },
   actions: {
     updateData(context) {
@@ -26,6 +29,10 @@ export default createStore({
           console.log(data);
         }
       });
+    },
+    updateGeneratedList(context, {list})
+    {
+      context.commit("updateGeneratedList", list);
     }
   },
   modules: {
